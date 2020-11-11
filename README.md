@@ -1,3 +1,1 @@
-# mydoc
-
-[C++Primer](docs\C++Primer)
+none
