@@ -1,3 +1,5 @@
-- 设计模式
+- C++Primer
 
-  - [第一章节](Python/批量上传博文到MySQL数据库.md)
+  - [2.1 基本内置类型.md](C++Primer/2.1 基本内置类型.md)
+  - [2.2 变量.md](C++Primer/2.2 变量.md)
+
