@@ -7,6 +7,3 @@
 
 - [git的基本使用](_source\零碎的知识点\git的基本使用)
 
-[test](_source/test.md)
-
-[test](./_source/test.md)
