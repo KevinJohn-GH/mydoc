@@ -4,5 +4,4 @@
 - 包括计算机网络、操作系统、算法等计算机原理
 - 也包括运维的一些热门技术
 
-[开始阅读](https://github.com/KevinJohn-GH/mydoc/tree/main/docs/README.md
-)
+[开始阅读](https://kevinjohn-gh.github.io/mydoc/#/?id=%e7%9b%ae%e5%bd%95)
