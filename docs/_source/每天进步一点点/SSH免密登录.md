@@ -1,5 +1,3 @@
-## 每天进步一点点
-
 #### SSH免密登录实现及原理
 
 ##### 客户机配置
@@ -27,7 +25,7 @@
 4. 重启ssh
 
     ```shell
-sudo systemctl restart sshd 
+    sudo systemctl restart sshd 
     ```
 
 ##### 原理
