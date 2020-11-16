@@ -54,7 +54,7 @@ echo $TERM：打印当前中断类型。
 echo $HOSTNAME：显示当前主机名。
 ```
 
-:star:使用到的三剑客
+⭐使用到的三剑客
 
 ``` shell
 awk '{print $0 "demo"}' file #在文本每一行前添加demo
@@ -143,13 +143,16 @@ fi
 
 ```shell
 (): 用于多个命令组
+
 (()): 整数扩展、运算符、重定义变量值、算数运算比较
 []: bash内部命令，与test相同。正则字符范围、引用数组元素编号，不支持“+”，“-，“*”，“/”数学运算符，逻辑测试使用-a、-o。
+
 [[]]: bash程序语言关键字，不是一个命令，比[]更加通用，不支持“+”，“-，“*”，“/”数学运算符，逻辑测试使用&&、||。
+
 {}： 主要用于命令集合或范围，例如mkdir -p /data/201{7,8}
 ```
 
-:star:创建多个文件
+⭐创建多个文件
 
 ```shell
 touch file{0..5} # 创建file0~file5
@@ -177,7 +180,7 @@ fi
 echo "The mysql backup successfully"
 ```
 
-:star:变量赋值=不能留空格
+⭐变量赋值=不能留空格
 
 ### for循环
 
@@ -196,13 +199,15 @@ for website in www.baidu.com www.taobao.com www.qq.com
 do
 	echo $website
 done
-
+```
+```shell
 #循环打印1~100数字，seq表示列出数据范围
 for i in `seq 1 100`
 do
 	echo "NUM is $1"
 done
-
+```
+```shell
 #for循环求1~100的总和
 j=0
 for((i=1;i<=100;i++))
@@ -210,11 +215,63 @@ do
 	j=`expr $i + $j`
 done
 echo $j
-
+```
+```shell
 # 批量远程主机执行命令
 for i in `seq 100 200`
 do
 	ssh -l root 192.168.1.$i 'ls /tmp'
 done
 ```
+
+### while 循环
+
+```shell
+while (表达式)
+do
+	语句1
+done
+```
+
+##### 案例
+
+```shell
+#读取文件，打印输出
+while read line
+do
+	echo $line
+done < /etc/hosts
+```
+⭐read指令用于读取行或者读取变量
+```shell
+#while 循环求1~100的总和
+i=0
+j=1
+while(( i <= 100))
+do
+        j=`expr $i + $j`
+        ((i++))
+done
+echo $j
+```
+
+⭐expr用于运算逻辑工具
+
+```shell
+# 判断IP正确性
+read -p "please enter ip address, example 192.18.0.11 ip" IPADDR
+echo $IPADDR | grep -v "[a-zA-Z]" | grep --color -E "([0-9]{1,3}\.){3}[0-9]{1,3}"
+while [ $? -ne 0 ]      # 若没有正确匹配,则继续循环
+do
+	read -p "please enter ip address, example 192.18.0.11
+ip" IPADDR
+	echo $IPADDR | grep -v "[a-zA-Z]" | grep --color -E "([0-9]{1,3}\.){3}[0-9]{1,3}"
+done
+```
+
+⭐grep -v 或 --invert-match : 显示不包含匹配文本的所有行。
+
+⭐read -p 后面显示提示信息, 用于从标准输入读取数值
+
+⭐$? 前面程序执行正确则返回0
 
