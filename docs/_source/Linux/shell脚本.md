@@ -275,3 +275,144 @@ done
 
 ⭐$? 前面程序执行正确则返回0
 
+```shell
+# 每5秒检查/etc/passwd文件是否被改变
+FILES="/etc/passwd"
+while true
+do
+    echo "The time is `date +%F-%T`"
+    OLD=`md5sum $FILES | cut -d " " -f 1`
+    echo $OLD
+    sleep 5
+    NEW=`md5sum $FILES | cut -d " " -f 1`
+    echo $NEW
+    if [[ $OLD != $NEW ]]; then
+            echo "The $FILES has been modified."
+    fi
+done
+```
+
+⭐`md5sum testfile  > testfiel.md5` 产生md5摘要信息
+
+⭐`md5sum -c testfile.md5` 同一目录下执行该命令，验证文件是否修改
+
+```shell
+# 每10秒判断kevinjohn用户使用否登录
+USERS="kevinjohn"
+while true
+    do
+        echo "The Time is `date +%F-%T`"
+        sleep 10
+        NUM=`who | grep "$USERS" | wc -l`
+        if [[ $NUM -ge 1 ]];then
+            echo "The $USERS is login in system"
+        fi
+    done
+```
+
+### case 选择语句
+
+```shell
+case $1 in
+    Pattern1)
+    语句1
+    ;;
+    Pattern2)
+    语句2
+    ;;
+    *)
+    语句3
+    ;;
+esac
+```
+
+### select 选择语句
+
+用于选择, 常用于菜单的创建
+
+```shell
+select i in (表达式)
+do
+    语句
+done
+```
+
+##### 案例
+
+```shell
+# 打印开源操作系统选择
+#!/bin/bash
+PS3="What you like most of the open source
+system?"
+select i in Centos RedHat Ubuntu
+do
+    echo "Your Select System:"$i
+done
+```
+
+```shell
+# 打印LAMP选择菜单
+#!/bin/bash
+PS3="please enter your selsec install munu:"
+select i in http php mysql quit
+do
+case $i in
+    http)
+    echo Test httpd;
+    ;;
+    php)
+    echo Test PHP
+    ;;
+    mysql)
+    echo Test MySQL
+    ;;
+    quit)
+    echo The System exit
+    exit
+esac
+done
+```
+
+### shell函数
+
+```shell
+function name(){
+    command1
+    command2
+    ...
+}
+```
+
+##### 案例
+
+```shell
+# 创建apache安装函数
+#!/bin/bash
+# auto install apache
+H_FILES=httpd-2.2.31.tar.bz2
+H_FILES_DIR=httpd-2.2.31
+H_URL=https://mirror.bjtu.edu.cn/apache/httpd/
+H_PREFIX=/usr/local/apache2/
+function Apache_install()
+{
+# install httpd web server
+if [[ "$1" -eq "1" ]];then
+    wget -c $H_URL/$H_FILES && tar -jxvf $H_FILES && cd H_FILES_DIR && ./configure --prefix=$H_PREFIX
+    if [ $? -eq 0 ];then
+        make && make install
+        echo -e "\n\033[32m-----------------------\033[0m"
+        echo -e "\n\033[32mThe $H_FILE_DIR Server Install Success!\033[0m"
+    else
+        echo -e "\n\033[32mThe $H_FILE_DIR Make or Make install ERROR, Please Check......"
+    fi
+fi
+}
+Apache_install 1 # 执行函数,传递参数1
+```
+
+⭐https://mirror.bjtu.edu.cn/软件源
+
+
+
+
+
