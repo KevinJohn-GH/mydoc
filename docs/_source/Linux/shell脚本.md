@@ -414,5 +414,88 @@ Apache_install 1 # 执行函数,传递参数1
 
 
 
+## 数组编程
 
+##### 数组定义及创建
+
+```shell
+JETEST={
+    test1
+    test2
+    test3
+}
+```
+
+##### 引用数组的方法详解
+
+- echo ${JETEST[@]}：显示该数组所有参数
+- echo ${#JETEST[@]}：显示该数组参数个数
+- echo ${#JETEST[0]}：显示test1字符长度
+
+- echo ${JETEST[@]:0}：打印数组所有的值
+- echo ${JETEST[@]:1}：打印从第二个开始所有的值
+- echo ${JETEST[@]:1:2}：打印第二个值与第三个值。
+
+##### 数组替换操作
+
+- JETEST=( [0]=www1[1]=www2[2]=www3)：数组赋值
+- exho ${JETEST[@]/test/jfedu}：将属猪值test替换为jfedu
+- NEWJFTEST='echo ${JFTEST[@]/test/jfedu}'：将结果赋值新数组
+
+##### 数组删除操作
+
+unset array[0]：删除数组第一个值。
+
+unset array[1]：删除数组第二个值。
+
+unset array：删除整个数组。
+
+##### 案例1：网卡bond绑定脚本
+
+```shell
+#!/bin/bash
+eth_bond()
+{
+NETWORK=(
+    HWADDR=`ifconfig eth0 | egrep "HWaddr | Bcast" | tr"\n' "" | awk '{print $5, $7, $NF}' | sed -e 's/addr://g' -e 's/Mask://g' | awk '{print $1}'`
+    IPADDR=`ifconfig eth0 | egrep "HWaddr | Bcast" | tr"\n' "" | awk '{print $5, $7, $NF}' | sed -e 's/addr://g' -e 's/Mask://g' | awk '{print $2}'`
+    NETMASK=`ifconfig eth0 | egrep "HWaddr | Bcast" | tr"\n' "" | awk '{print $5, $7, $NF}' | sed -e 's/addr://g' -e 's/Mask://g' | awk '{print $3}'`
+    GATEWAY=`route -n | grep "UG" | awk '{print $2}'`
+)    
+}
+cat > ifcfg-bond0 <<EOF
+DEVICE=bond0
+BOOTPROTO=static
+${NETWORK[1]}
+${NETWORK[2]}
+${NETWORK[3]}
+ONBOOT=yes
+TYPE=Ethernet
+NM_CONTROLLED=no
+EOF
+```
+
+⭐tr 'A-Z' 'a-z'将输入字符中大写字母替换成小写
+
+⭐<<EOF表示后续的输入作为子命令或子shell的输入参数，直到遇到EOF，再次返回到主shell中
+
+##### 案例2：定义IPv4值
+
+```shell
+#!/bin/bash
+# auto change ip netmask gateway scripts
+ETHCONF=/etc/sysconfig/network-script/ifcfg-eth0
+HOSTS=/etc/hosts
+NETWORK=/etc/sysconfig/network
+DIR=/data/back/`date +%Y %m %d`
+NETMASK=255.255.255.0
+echo "--------------------"
+count_ip(){
+     count=(`echo $IPADDR | awk -F. '{print $1, $2, $3,$4}'`)
+         IP1=${count[0]}
+         IP2=${count[1]}
+         IP3=${count[2]}
+         IP4=${count[3]}
+}
+```
 
