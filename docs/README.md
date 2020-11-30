@@ -3,8 +3,7 @@
 - [Linux操作系统](_source/Linux/Linux操作系统.md)
 - [shell脚本](_source/Linux/shell脚本.md)
 - [shell编辑四剑客](_source/Linux/shell编辑四剑客.md)
-- [每天进步一点点](_source/Linux/每天进步一点点/README.md)
-- [问题记录](_source/Linux/问题记录.md)
+- [其它](_source/Linux/其它.md)
 
 
 
@@ -31,3 +30,5 @@
 
 
 👦[面试题](_source\面试题.md)
+
+👷‍♂️[运维问题记录](_source/运维问题记录.md)
