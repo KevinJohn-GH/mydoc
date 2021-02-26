@@ -46,7 +46,7 @@
 
   动态路由协议（Routing Protocol）发现的路由。（RIP，OSPF）。
 
-###路由优先级
+### 路由优先级
 
 - 路由优先级（Preference）代表路由协议的可信度。
 
